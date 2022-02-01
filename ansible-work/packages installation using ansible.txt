@@ -1,0 +1,47 @@
+---
+
+- name: installing req_softwares
+  hosts: linux
+  become: true
+  tasks:
+    - name: Update and upgrade apt packages
+      apt:
+        upgrade: yes
+        update_cache: yes
+
+    - name: installing docker vim nano openssl curl wget and git
+      apt:
+        name: "{{item}}"
+        state: latest
+        update_cache: yes
+      loop:
+        - docker.io
+        - git
+        - vim
+        - nano
+        - openssl
+        - curl
+        - wget
+        - net-tools
+
+    - name: Install docker-compose from official github repo
+      get_url:
+        url : https://github.com/docker/compose/releases/download/1.29.2/docker-compose-Linux-x86_64
+        dest: /usr/local/bin/docker-compose
+        mode: 'u+x,g+x'
+
+    - name: Copy the script
+      copy: src=./test.sh dest=/home/ mode=0777
+
+    - name: Executing a bash script
+      command: sh /home/test.sh
+
+    - name: ins-vim
+      apt:
+        name: neovim
+        state: latest
+
+    - name: ins-cmatrix
+      apt:
+        name: cmatrix
+        state: latest
