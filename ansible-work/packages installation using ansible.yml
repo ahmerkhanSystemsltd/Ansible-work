@@ -17,6 +17,7 @@
       loop:
         - docker.io
         - git
+        - neovim
         - vim
         - nano
         - openssl
@@ -35,13 +36,3 @@
 
     - name: Executing a bash script
       command: sh /home/test.sh
-
-    - name: ins-vim
-      apt:
-        name: neovim
-        state: latest
-
-    - name: ins-cmatrix
-      apt:
-        name: cmatrix
-        state: latest

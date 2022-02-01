@@ -40,25 +40,8 @@
 
     - name: Update Inventory file
       lineinfile:
-        path: /etc/ansible/hosts
+        dest: /etc/hosts
         insertafter: '^[containers]'
         firstmatch: yes
         line: "{{docker_info.ansible_facts.docker_container.NetworkSettings.IPAddress}}"
         state: present
-
-
-
-    # - name: Create default containers
-    #   docker_container:
-    #     name: ubuntu
-    #     image: redis:6.2
-    #     command: sleep 1d
-    #     state: present
-
-
-    # - name: Create a ubuntu container
-    #   docker_container:
-    #    name: ubuntu-container
-    #    image: ubuntu:20.04
-    #    volumes:
-    #     - ./u-dir
